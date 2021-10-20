@@ -1,0 +1,35 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config webpack.config.js --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Murillo-Me/todo-list.git"
+  },
+  "author": "Murillo Mendes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Murillo-Me/todo-list/issues"
+  },
+  "homepage": "https://github.com/Murillo-Me/todo-list#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.5",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "css-loader": "^6.4.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.4.0",
+    "mini-css-extract-plugin": "^2.4.2",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^12.2.0",
+    "style-loader": "^3.3.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}

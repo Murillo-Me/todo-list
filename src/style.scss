@@ -1,0 +1,176 @@
+$darker-color: #222831;
+$dark-color: #393E46;
+$middle-color: #474E59;
+$medium-light-color: #5B6370;
+$light-color: #EEEEEE;
+$default-project-color: #00ADB5;
+
+@mixin flexCenter($direction) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: $darker-color;
+    @include flexCenter(row);
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    header.page-title {
+        width: 100%;
+        text-align: center;
+        color: $light-color;
+        font-size: 2rem;
+        margin-block: 30px;
+
+    }
+    
+    aside.project-sidebar {
+        @include flexCenter(column);
+        align-items: flex-start;
+        text-align: left;
+        width: 300px;
+        height: fit-content;
+        border: 1px solid $light-color;
+        border-radius: 10px;
+        color: $light-color;
+        margin: 25px;
+        margin-top: 0px;
+
+        h1.user-title {
+            margin: 20px;
+            font-size: 1.5rem;
+
+        }
+
+        ul.project-list {
+            @include flexCenter(column);
+            list-style: none;
+            align-items: flex-start;
+            background-color: $dark-color;
+            width: 85%;
+            margin-inline: auto;
+            margin-bottom: 15px;
+            padding-inline: 10px;
+            padding-block: 7px;
+            border-radius: 10px;
+
+            li.project-item {
+                width: 100%;
+                // height: 1.5rem;
+                padding: 10px;
+                margin-block: 5px;
+                border-bottom: 1px solid $light-color;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover {
+                    background-color: $middle-color;                }
+                    
+                
+            }
+        }
+    }
+
+    main.todo-outer-container {
+        @include flexCenter(column);
+        align-items: flex-start;
+        text-align: left;
+        width: 900px;
+        height: fit-content;
+        border: 1px solid $light-color;
+        border-radius: 10px;
+        color: $light-color;
+        margin: 25px;
+        margin-top: 0px;
+
+        h1.project-title {
+            font-size: 1.3rem;
+            margin-inline: 25px;
+            margin-block: 15px;
+        }
+
+        .todo-inner-container {
+            margin-inline: auto;
+            @include flexCenter(row);
+            justify-content: left;
+            flex-wrap: wrap;
+            width: 93%;
+            height: fit-content;
+            background-color: $dark-color;
+            border-radius: 10px;
+            
+            .todo-item-container {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                width: 100%;
+                padding-block: 10px;
+
+                span.todo-check-icon {
+                    margin-left: 20px;
+                    color: $default-project-color;
+                    cursor: pointer;
+                }
+    
+                span.todo-title {
+                    width: 90%;
+                }
+
+                button.delete-todo {
+                    margin-inline: 15px;
+                    background-color: $dark-color;
+                    border: none;
+                    color: $medium-light-color;
+                    cursor: pointer;
+                    font-weight: bolder;
+                }
+            }
+
+            .checklist-container {
+                margin-left: 60px;
+                padding-block: 15px;
+                padding-top: 0px;
+
+                li.checklist-item {
+                    margin-bottom: 7px;
+
+                    span.checklist-icon {
+                        cursor: pointer;
+                    }
+
+                    span.delete-checklist-icon {
+                        opacity: 0;
+                        color: $medium-light-color;
+                        &:hover {
+                            opacity: 1;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        button.add-todo-btn {
+            width: 93%;
+            margin-inline: auto;
+            margin-block: 20px;
+            padding-block: 5px;
+            border: none;
+            border-radius: 10px;
+            background-color: $dark-color;
+            opacity: 0.3;
+            color: $default-project-color;
+            &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.project-icon {
+    color: $default-project-color;
+    margin-right: 5px;
+}
