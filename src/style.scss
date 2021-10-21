@@ -5,6 +5,9 @@ $medium-light-color: #5B6370;
 $light-color: #EEEEEE;
 $default-project-color: #00ADB5;
 
+@import './fonts';
+@import './animations';
+
 @mixin flexCenter($direction) {
     display: flex;
     flex-direction: $direction;
@@ -24,7 +27,6 @@ body {
         color: $light-color;
         font-size: 2rem;
         margin-block: 30px;
-
     }
     
     aside.project-sidebar {
@@ -54,26 +56,27 @@ body {
             margin-inline: auto;
             margin-bottom: 15px;
             padding-inline: 10px;
-            padding-block: 7px;
+            padding-block: 2px;
             border-radius: 10px;
 
             li.project-item {
                 width: 100%;
-                // height: 1.5rem;
-                padding: 10px;
+                padding: 5px;
+                padding-block: 7px;
                 margin-block: 5px;
                 border-bottom: 1px solid $light-color;
-                border-radius: 5px;
+                border-radius: 5px 5px 0 0;
                 cursor: pointer;
+                transition: all 0.5s, background-color 0.1s ease;
                 &:hover {
-                    background-color: $middle-color;                }
-                    
+                    background-color: $middle-color;
+                }
                 
             }
         }
     }
 
-    main.todo-outer-container {
+    main.project-todo-container {
         @include flexCenter(column);
         align-items: flex-start;
         text-align: left;
@@ -91,61 +94,71 @@ body {
             margin-block: 15px;
         }
 
-        .todo-inner-container {
-            margin-inline: auto;
-            @include flexCenter(row);
-            justify-content: left;
-            flex-wrap: wrap;
-            width: 93%;
-            height: fit-content;
-            background-color: $dark-color;
-            border-radius: 10px;
-            
-            .todo-item-container {
-                display: flex;
+
+        .todo-outer-container {
+        @include flexCenter(column);
+        align-items: flex-start;
+        text-align: left;
+        width: 100%;
+
+            .todo-inner-container {
+                margin-inline: auto;
+                margin-bottom: 10px;
+                @include flexCenter(row);
                 justify-content: left;
-                align-items: center;
-                width: 100%;
-                padding-block: 10px;
+                flex-wrap: wrap;
+                width: 93%;
+                height: fit-content;
+                background-color: $dark-color;
+                border-radius: 10px;
+                animation: expand 0.2s ease;
+                
+                .todo-item-container {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    width: 100%;
+                    padding-block: 10px;
 
-                span.todo-check-icon {
-                    margin-left: 20px;
-                    color: $default-project-color;
-                    cursor: pointer;
-                }
-    
-                span.todo-title {
-                    width: 90%;
-                }
-
-                button.delete-todo {
-                    margin-inline: 15px;
-                    background-color: $dark-color;
-                    border: none;
-                    color: $medium-light-color;
-                    cursor: pointer;
-                    font-weight: bolder;
-                }
-            }
-
-            .checklist-container {
-                margin-left: 60px;
-                padding-block: 15px;
-                padding-top: 0px;
-
-                li.checklist-item {
-                    margin-bottom: 7px;
-
-                    span.checklist-icon {
+                    span.todo-check-icon {
+                        margin-left: 20px;
+                        color: $default-project-color;
                         cursor: pointer;
                     }
+        
+                    span.todo-title {
+                        width: 90%;
+                    }
 
-                    span.delete-checklist-icon {
-                        opacity: 0;
+                    button.delete-todo {
+                        margin-inline: 6px;
+                        background-color: $dark-color;
+                        border: none;
                         color: $medium-light-color;
-                        &:hover {
-                            opacity: 1;
+                        cursor: pointer;
+                        font-weight: bolder;
+                    }
+                }
+
+                .checklist-container {
+                    margin-left: 60px;
+                    padding-block: 15px;
+                    padding-top: 0px;
+
+                    li.checklist-item {
+                        margin-bottom: 7px;
+
+                        span.checklist-icon {
                             cursor: pointer;
+                        }
+
+                        span.delete-checklist-icon {
+                            opacity: 0;
+                            color: $medium-light-color;
+                            &:hover {
+                                opacity: 1;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
@@ -155,13 +168,15 @@ body {
         button.add-todo-btn {
             width: 93%;
             margin-inline: auto;
-            margin-block: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
             padding-block: 5px;
             border: none;
             border-radius: 10px;
             background-color: $dark-color;
             opacity: 0.3;
             color: $default-project-color;
+            transition: opacity 0.1s ease;
             &:hover {
                 opacity: 0.8;
                 cursor: pointer;
@@ -173,4 +188,22 @@ body {
 .project-icon {
     color: $default-project-color;
     margin-right: 5px;
+}
+
+.fa-circle {
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    &:hover {
+        background-image: radial-gradient($dark-color, $default-project-color 95%);
+    }
+}
+
+footer.page-footer {
+    width: 100%;
+    padding: 25px;
+    color: $light-color;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include flexCenter(row)
 }

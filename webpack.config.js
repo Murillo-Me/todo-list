@@ -7,6 +7,7 @@ module.exports = {
    mode: "development",   
    entry: {
 			main: "./src/index.js",
+         DOMHandler: "./src/DOMHandler.js",
 	 },
    output: {
       path: path.resolve(__dirname, 'dist'),
