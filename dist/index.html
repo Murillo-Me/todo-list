@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/adfbc2203b.js" crossorigin="anonymous"></script>
     <title>My to do's</title>
-<script defer src="main.bundle.js"></script></head>
+<script defer src="http://localhost:8080/main.bundle.js"></script></head>
 <body>
-    <h1>Hello World</h1>
-    <p>Test</p>
+
+    <header class="page-title"><h1 class="page-title-text">My to do's</h1></header>
+    <aside class="project-sidebar">
+        <h1 class="user-title">John Doe</h1>
+        <ul class="project-list">
+            <li class="project-item"><i class="project-icon fas fa-inbox"></i>Entry</li>
+            <li class="project-item">Daily</li>
+            <li class="project-item">Work</li>
+            <li class="project-item">House</li>
+        </ul>
+    </aside>
+    <main class="project-todo-container">
+        <h1 class="project-title"><i class="project-icon fas fa-inbox"></i>Entry</h1>
+        <div class="todo-outer-container">
+            
+        </div>
+
+        <button class="add-todo-btn"><i class="fas fa-plus-circle fa-2x"></i></button>
+    </main>
+
+    <footer class="page-footer">
+        <span class="footer-text">Murillo Mendes, 2021</span>
+    </footer>
 </body>
 </html>

@@ -6,12 +6,13 @@ const path = require('path');
 module.exports = {
    mode: "development",   
    entry: {
-			main: "./src/index.js",
-         DOMHandler: "./src/DOMHandler.js",
+			main: "./src/main.js",
+         // DOMHandler: "./src/DOMHandler.js"
 	 },
    output: {
       path: path.resolve(__dirname, 'dist'),
-      filename : "[name].bundle.js"
+      filename : "[name].bundle.js",
+      publicPath: "http://localhost:3000/"
    },
 	 plugins: [ 
       new HtmlWebpackPlugin({ 
