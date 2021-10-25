@@ -26,9 +26,20 @@ function deleteTodoDiv() {
     this.closest('.todo-inner-container').remove();
 }
 
+function getCurrentDate() {
+    // https://stackoverflow.com/a/29774197
+
+    let currentDate = new Date();
+    const offset = currentDate.getTimezoneOffset()
+    currentDate = new Date(currentDate.getTime() - (offset*60*1000))
+    return currentDate.toISOString().split('T')[0]
+}
+
 function createTodoInputElement() {
     const todoInputElement = document.createElement('div');
     todoInputElement.classList.add('todo-inner-container');
+    const currentDate = getCurrentDate();
+
     todoInputElement.innerHTML = `
             <div class="todo-item-container">
                 <span class="todo-check-icon"><i class="project-icon far fa-circle"></i></span>
@@ -43,14 +54,12 @@ function createTodoInputElement() {
                 </ul>
                 <div class="dueDate-config-container">
                     <label for="dueDate" class="dueDate-label">Due:</label>
-                    <input type="date" name="dueDate" id="dueDate">
+                    <input type="date" name="dueDate" id="dueDate" value="${currentDate}">
                 </div>
             </div>
             
     `;
-
-    const datePicker = todoInputElement.querySelector('#dueDate')
-    datePicker.value = Date.now();
+    
 
     const deleteTodoBtn = todoInputElement.querySelector('button.delete-todo')
     deleteTodoBtn.addEventListener('click', deleteTodoDiv)
