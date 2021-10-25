@@ -44,9 +44,3 @@ function addTodo() {
 loadEventListeners();
 
 DOMHandler.createTodoDiv('teste')
-
-console.log(todo1);
-console.log(todo2);
-console.log(todoList);
-
-console.log('Hello World');

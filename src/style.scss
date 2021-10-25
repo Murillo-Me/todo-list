@@ -228,9 +228,24 @@ body {
                         margin: 0.5rem;
 
                         .priority-input-item {
-                            margin-inline: 1.5rem;
+                            margin-inline: 0.3rem;
                             padding: 0.5rem;
                             cursor:pointer;
+                            &.active {
+                                background-color: $middle-color
+                            }
+
+                            &:first-of-type {
+                                color: rgb(69, 194, 69);
+                            }
+
+                            &:nth-child(2) {
+                                color: rgb(202, 202, 51);
+                            }
+
+                            &:last-of-type {
+                                color: #d63b3b;
+                            }
                         }
                     }
 

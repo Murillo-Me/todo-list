@@ -35,6 +35,14 @@ function getCurrentDate() {
     return currentDate.toISOString().split('T')[0]
 }
 
+function toggleActivePriorityBtn() {
+    const siblings = [...this.parentElement.children]
+    siblings.forEach(element => element.classList.remove('active'));
+    this.classList.toggle('active');
+    
+    console.log(this.getAttribute('data-priority'));
+}
+
 function createTodoInputElement() {
     const todoInputElement = document.createElement('div');
     todoInputElement.classList.add('todo-inner-container');
@@ -48,9 +56,9 @@ function createTodoInputElement() {
             </div>
             <div class="new-todo-config-container">
                 <ul class="priority-input-list">
-                    <li class="priority-input-item">2</li>
-                    <li class="priority-input-item">1</li>
-                    <li class="priority-input-item">0</li>
+                    <li data-priority="2" class="priority-input-item active"><i class="fas fa-star"></i></li>
+                    <li data-priority="1" class="priority-input-item"><i class="fas fa-star"></i></li>
+                    <li data-priority="0" class="priority-input-item"><i class="fas fa-star"></i></li>
                 </ul>
                 <div class="dueDate-config-container">
                     <label for="dueDate" class="dueDate-label">Due:</label>
@@ -60,6 +68,8 @@ function createTodoInputElement() {
             
     `;
     
+    const priorityInputList = todoInputElement.querySelectorAll('.priority-input-item')
+    priorityInputList.forEach(btn => btn.addEventListener('click', toggleActivePriorityBtn))
 
     const deleteTodoBtn = todoInputElement.querySelector('button.delete-todo')
     deleteTodoBtn.addEventListener('click', deleteTodoDiv)
