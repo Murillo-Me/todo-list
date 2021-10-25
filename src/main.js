@@ -7,7 +7,7 @@ let todoList = []
 class TodoItem {
 
     // priority goes from 0 to 2, higher to lower priority
-    constructor(title, description, dueDate, priority = 2) {
+    constructor(title, description, dueDate, priority) {
         this.id = todoList.length;
         this.title = title;
         this.description = description;
@@ -26,16 +26,26 @@ function addTodo() {
 
     const todoInputElement = DOMHandler.createTodoInputElement();
 
-    const todoTitleInput = todoInputElement.querySelector('.todo-title')
-
     todoInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            const title = todoTitleInput.value
+            const title = todoInputElement.querySelector('.todo-title').value
 
-            let toDo = new TodoItem(title,'description test', '10/08')
+            const todoDueDateInput = todoInputElement.querySelector('#dueDate')
+            let dueDate = null
+
+            if (todoDueDateInput.classList.contains('active')) {
+                dueDate = todoDueDateInput.value
+            }
+
+            const todoPriorityInput = todoInputElement.querySelector('.priority-input-item.active')
+            const priorityValue = todoPriorityInput.getAttribute('data-priority')
+
+            let toDo = new TodoItem(title, null, dueDate, priorityValue)
+            todoList.push(toDo)
 
             DOMHandler.createTodoDiv(title);
             this.closest('.todo-inner-container').remove();
+            console.log(toDo);
         }
     });
 

@@ -169,7 +169,7 @@ body {
                         font-family: 'Roboto', sans-serif;
                         width: 90%;
                         background-color: $dark-color;
-                        border: none;
+                        border: 1px solid $dark-color;
                         color: $light-color;
                         font-size: 1rem;
                         padding: 0.5rem;
@@ -231,6 +231,7 @@ body {
                             margin-inline: 0.3rem;
                             padding: 0.5rem;
                             cursor:pointer;
+
                             &.active {
                                 background-color: $middle-color
                             }
@@ -251,6 +252,7 @@ body {
 
                     .dueDate-config-container {
                         @include flexCenter(row);
+                        justify-content: space-between;
                         padding-block: 0.3rem;
                         padding-inline: 1rem;
                         margin: 0.5rem;
@@ -258,7 +260,64 @@ body {
                         border-radius: 5px;
 
                         label {
-                            margin-right: 0.3rem;
+                            font-weight: bold;
+                            margin-right: 0.5rem;
+                        }
+
+                        button {
+                            @include flexCenter(row);
+                            border: none;
+                            background-color: $medium-light-color;
+                            height: 90%;
+                            margin-right: 0.8rem;
+                            padding-inline: 0.8rem;
+                            padding-left: 0.7rem;
+                            font-size: 1.1rem;
+                            cursor: pointer;
+
+                            &.active {
+                                background-color: $middle-color
+                            }
+
+                            &.noDueDate-btn {
+                                color: #d63b3b;
+                            }
+
+                            &.yesDueDate-btn {
+                                display: block;
+                                height: 95%;
+                                color:rgb(69, 194, 69);
+                                margin-left: -0.6rem;
+                                transition: all 0.3s ease;
+
+                                &.active {
+                                    display: none;
+                                    // margin-left: -2rem;
+                                    // border-radius: none;
+                                }
+                            }
+                        }
+
+                        input {
+                            background-color: $middle-color;
+                            color: none;
+                            width: 0px;
+                            border-radius: 5px;
+                            padding: 0.3rem;
+                            font-family: 'Roboto', sans-serif;
+                            font-size: 0.9rem;
+                            border: none;
+                            transition: all 0.3s ease;
+                            
+                            &.active {
+                                color: $light-color;
+                                width: 8.3rem;
+                            }
+
+                            &::-webkit-calendar-picker-indicator {
+                                filter: invert(1);
+                                cursor: pointer;
+                            }
                         }
 
                     }

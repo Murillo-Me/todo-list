@@ -39,8 +39,16 @@ function toggleActivePriorityBtn() {
     const siblings = [...this.parentElement.children]
     siblings.forEach(element => element.classList.remove('active'));
     this.classList.toggle('active');
-    
-    console.log(this.getAttribute('data-priority'));
+}
+
+function toggleDueDateBtn() {
+    const dueDateBtns = this.parentElement.querySelectorAll('button')
+    const dateInput = this.parentElement.querySelector("input[type='date']")
+
+    dueDateBtns.forEach(btn => btn.classList.remove('active'))
+    this.classList.add('active')
+
+    dateInput.classList.toggle('active')
 }
 
 function createTodoInputElement() {
@@ -61,13 +69,18 @@ function createTodoInputElement() {
                     <li data-priority="0" class="priority-input-item"><i class="fas fa-star"></i></li>
                 </ul>
                 <div class="dueDate-config-container">
-                    <label for="dueDate" class="dueDate-label">Due:</label>
+                    <label for="dueDate" class="dueDate-label">Due date:</label>
+                    <button class="noDueDate-btn active"><i class="far fa-calendar-times"></i></button>
                     <input type="date" name="dueDate" id="dueDate" value="${currentDate}">
+                    <button class="yesDueDate-btn"><i class="far fa-calendar"></i></button>
                 </div>
             </div>
             
     `;
     
+    const dueDateBtns = todoInputElement.querySelectorAll('.dueDate-config-container button')
+    dueDateBtns.forEach(btn => btn.addEventListener('click', toggleDueDateBtn))
+
     const priorityInputList = todoInputElement.querySelectorAll('.priority-input-item')
     priorityInputList.forEach(btn => btn.addEventListener('click', toggleActivePriorityBtn))
 
