@@ -1,12 +1,12 @@
 
-function createTodoDiv(title = 'Empty') {
-    console.log(title);
+function createTodoDiv(toDoObj) {
+
     const newTodoDiv = document.createElement('div');
     newTodoDiv.classList.add('todo-inner-container');
     newTodoDiv.innerHTML = `
             <div class="todo-item-container">
                 <span class="todo-check-icon"><i class="project-icon far fa-circle"></i></span>
-                <span class="todo-title">${title}</span>
+                <span class="todo-title">${toDoObj.title}</span>
                 <button class="delete-todo"><i class="far fa-times-circle fa-2x"></i></button>
             </div>
     `;
@@ -42,6 +42,8 @@ function toggleActivePriorityBtn() {
 }
 
 function toggleDueDateBtn() {
+    if (this.classList.contains('active')) return
+
     const dueDateBtns = this.parentElement.querySelectorAll('button')
     const dateInput = this.parentElement.querySelector("input[type='date']")
 
@@ -64,16 +66,18 @@ function createTodoInputElement() {
             </div>
             <div class="new-todo-config-container">
                 <ul class="priority-input-list">
+                    <span class="config-title">Priority: </span>
                     <li data-priority="2" class="priority-input-item active"><i class="fas fa-star"></i></li>
                     <li data-priority="1" class="priority-input-item"><i class="fas fa-star"></i></li>
                     <li data-priority="0" class="priority-input-item"><i class="fas fa-star"></i></li>
                 </ul>
                 <div class="dueDate-config-container">
-                    <label for="dueDate" class="dueDate-label">Due date:</label>
+                    <label for="dueDate" class="dueDate-label config-title">Due date:</label>
                     <button class="noDueDate-btn active"><i class="far fa-calendar-times"></i></button>
                     <input type="date" name="dueDate" id="dueDate" value="${currentDate}">
                     <button class="yesDueDate-btn"><i class="far fa-calendar"></i></button>
                 </div>
+                <button class="add-todo-config-btn">Add</button>
             </div>
             
     `;

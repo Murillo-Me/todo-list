@@ -19,38 +19,46 @@ class TodoItem {
 
 function loadEventListeners() {
     const addTodoBtn = document.querySelector('button.add-todo-btn');
-    addTodoBtn.addEventListener('click', addTodo);
+    addTodoBtn.addEventListener('click', getTodoInput);
 }
 
-function addTodo() {
+function getTodoInput() {
 
     const todoInputElement = DOMHandler.createTodoInputElement();
-
     todoInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            const title = todoInputElement.querySelector('.todo-title').value
-
-            const todoDueDateInput = todoInputElement.querySelector('#dueDate')
-            let dueDate = null
-
-            if (todoDueDateInput.classList.contains('active')) {
-                dueDate = todoDueDateInput.value
-            }
-
-            const todoPriorityInput = todoInputElement.querySelector('.priority-input-item.active')
-            const priorityValue = todoPriorityInput.getAttribute('data-priority')
-
-            let toDo = new TodoItem(title, null, dueDate, priorityValue)
-            todoList.push(toDo)
-
-            DOMHandler.createTodoDiv(title);
-            this.closest('.todo-inner-container').remove();
-            console.log(toDo);
+            addToDo(todoInputElement);
         }
     });
 
+    const todoAddBtn = todoInputElement.querySelector('button.add-todo-config-btn')
+    todoAddBtn.addEventListener('click', () => {
+        addToDo(todoInputElement)
+    })
+
+}
+
+function addToDo(todoInputElement) {
+    const title = todoInputElement.querySelector('.todo-title').value
+
+    const todoDueDateInput = todoInputElement.querySelector('input#dueDate')
+    let dueDate = null
+
+    if (todoDueDateInput.classList.contains('active')) {
+        dueDate = todoDueDateInput.value
+    }
+
+    const todoPriorityInput = todoInputElement.querySelector('.priority-input-item.active')
+    const priorityValue = todoPriorityInput.getAttribute('data-priority')
+
+    let toDo = new TodoItem(title, null, dueDate, priorityValue)
+    todoList.push(toDo)
+
+    DOMHandler.createTodoDiv(toDo);
+    todoInputElement.closest('.todo-inner-container').remove();
+    console.log(toDo);
 }
 
 loadEventListeners();
 
-DOMHandler.createTodoDiv('teste')
+DOMHandler.createTodoDiv({title: 'teste'})
