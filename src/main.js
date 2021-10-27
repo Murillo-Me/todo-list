@@ -3,16 +3,30 @@ import './style.scss'
 import * as DOMHandler from './DOMHandler.js'
 
 let todoList = []
+let projectList = []
 
 class TodoItem {
 
     // priority goes from 0 to 2, higher to lower priority
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, parentProject) {
         this.id = todoList.length;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.parentProject = parentProject;
+    }
+
+}
+
+class Project {
+    
+    constructor(title, icon, color) {
+        this.id = projectList.length;
+        this.listOrder = projectList.length;
+        this.title = title;
+        this.icon = icon;
+        this.color = color;
     }
 
 }
@@ -20,6 +34,9 @@ class TodoItem {
 function loadEventListeners() {
     const addTodoBtn = document.querySelector('button.add-todo-btn');
     addTodoBtn.addEventListener('click', getTodoInput);
+
+    const addProjectBtn = document.querySelector('button.new-project-btn')
+    addProjectBtn.addEventListener('click', getProjectInput)
 }
 
 function getTodoInput() {
@@ -35,6 +52,17 @@ function getTodoInput() {
     todoAddBtn.addEventListener('click', () => {
         addToDo(todoInputElement)
     })
+
+}
+
+function getProjectInput() {
+
+    const projectInputElement = DOMHandler.createProjectInputElement();
+    projectInputElement.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            addProject(projectInputElement);
+        }
+    });
 
 }
 
@@ -57,6 +85,19 @@ function addToDo(todoInputElement) {
     DOMHandler.createTodoDiv(toDo);
     todoInputElement.closest('.todo-inner-container').remove();
     console.log(toDo);
+}
+
+function addProject(projectInputElement) {
+    const title = projectInputElement.querySelector('#projectTitle').value
+    const icon = 'fas fa-adjust'
+    const color = 'green'
+
+    let newProject = new Project(title, icon, color)
+    projectList.push(newProject)
+
+    DOMHandler.createProjectElement(newProject);
+    projectInputElement.closest('.project-item').remove();
+    console.log(newProject);
 }
 
 loadEventListeners();

@@ -73,7 +73,30 @@ body {
                 &:hover {
                     background-color: $middle-color;
                 }
+
+            }
+
+            li.input-project-container {
+                cursor: default;
+                padding-inline: 5px;
+                padding-block: 7px;
+
                 
+
+                input#projectTitle {
+                    
+                    background-color: $medium-light-color;
+                    border-radius: 3px;
+                    padding-block: 0.2rem;
+                    border: none;
+                    color: $light-color;
+                    font-size: 0.8rem;
+                    
+                    &:focus {
+                        outline: none;
+                        border: 1px solid $default-project-color;
+                    }
+                }
             }
 
         }

@@ -18,6 +18,19 @@ function createTodoDiv(toDoObj) {
     todoContainer.append(newTodoDiv);
 }
 
+function createProjectElement(newProject) {
+
+    const newProjectElement = document.createElement('li');
+    newProjectElement.classList.add('project-item');
+    newProjectElement.innerHTML = `
+            <i data-project="${newProject.id}" class="project-icon ${newProject.icon}"></i>${newProject.title}
+    `;
+
+    const projectsContainer = document.querySelector('.project-list');
+    projectsContainer.append(newProjectElement);
+
+}
+
 function deleteTodoDiv() {
     if (this.closest('.todo-inner-container') === null) {
         console.error("ERROR: Couldn't find todo element to delete. No todo-inner-container found.");
@@ -100,7 +113,25 @@ function createTodoInputElement() {
     return todoInputElement;
 }
 
-export {createTodoDiv, createTodoInputElement, deleteTodoDiv}
+function createProjectInputElement() {
+    const projectInputElement = document.createElement('li');
+    projectInputElement.classList.add('project-item', 'input-project-container');
+
+    projectInputElement.innerHTML = `
+                                        <i data-project="placeholder" class="project-icon fas fa-adjust"></i>
+                                        <input type="text" name="projectTitle" id="projectTitle">
+    `;
+    
+    const projectsContainer = document.querySelector('.project-list');
+    projectsContainer.append(projectInputElement);
+
+    const projectTitleInput = projectInputElement.querySelector('#projectTitle')
+    projectTitleInput.focus();
+
+    return projectInputElement;
+}
+
+export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement}
 
 {/* <div class="checklist-container">
     <ul class="checklist">
