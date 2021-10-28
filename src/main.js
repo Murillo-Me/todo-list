@@ -40,27 +40,38 @@ function loadEventListeners() {
 }
 
 function getTodoInput() {
+    if (document.querySelector('input.todo-title') !== null) return
+
+    const genericAddBtn = this
+    genericAddBtn.style.display = 'none'
 
     const todoInputElement = DOMHandler.createTodoInputElement();
     todoInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             addToDo(todoInputElement);
+            genericAddBtn.style.display = 'block'
         }
     });
-
-    const todoAddBtn = todoInputElement.querySelector('button.add-todo-config-btn')
+    
+    const todoAddBtn = todoInputElement.querySelector('button.add-todo-config-btn');
     todoAddBtn.addEventListener('click', () => {
         addToDo(todoInputElement)
+        genericAddBtn.style.display = 'block'
     })
 
 }
 
 function getProjectInput() {
+    if (document.querySelector('input#projectTitle') !== null) return
+
+    const genericAddBtn = this
+    genericAddBtn.style.display = 'none'
 
     const projectInputElement = DOMHandler.createProjectInputElement();
     projectInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             addProject(projectInputElement);
+            genericAddBtn.style.display = 'block'
         }
     });
 

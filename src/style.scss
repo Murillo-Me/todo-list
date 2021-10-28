@@ -7,6 +7,9 @@ $default-project-color: #00ADB5;
 $darker-project-color: #015f64;
 $project-1-color: #A52F2F;
 $project-2-color: #4F55E1;
+$green-color: rgb(69, 194, 69);
+$yellow-color: rgb(202, 202, 51);
+$red-color: #d63b3b;
 
 @import './fonts';
 @import './animations';
@@ -60,6 +63,7 @@ body {
             padding-inline: 10px;
             padding-block: 2px;
             border-radius: 10px;
+            margin-bottom: 15px;
 
             li.project-item {
                 width: 100%;
@@ -79,9 +83,7 @@ body {
             li.input-project-container {
                 cursor: default;
                 padding-inline: 5px;
-                padding-block: 7px;
-
-                
+                padding-block: 7px;                
 
                 input#projectTitle {
                     
@@ -105,7 +107,7 @@ body {
             @include flexCenter(row);
             justify-content: left;
             margin-inline: auto;
-            margin-block: 15px;
+            margin-bottom: 15px;
             padding-block: 7px;
             border-radius: 10px;
             background-color: $dark-color;
@@ -273,15 +275,15 @@ body {
                             }
 
                             &[data-priority="2"] {
-                                color: rgb(69, 194, 69);
+                                color: $green-color;
                             }
 
                             &[data-priority="1"] {
-                                color: rgb(202, 202, 51);
+                                color: $yellow-color;
                             }
 
                             &[data-priority="0"] {
-                                color: #d63b3b;
+                                color: $red-color;
                             }
                         }
                     }
@@ -313,13 +315,13 @@ body {
 
                             &.noDueDate-btn {
                                 margin-left: 0.3rem;
-                                color: #d63b3b;
+                                color: $red-color;
                             }
 
                             &.yesDueDate-btn {
                                 display: block;
                                 height: 95%;
-                                color:rgb(69, 194, 69);
+                                color: $green-color;
                                 margin-left: -0.8rem;
                                 transition: all 0.3s ease;
 
