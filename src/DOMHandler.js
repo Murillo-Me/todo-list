@@ -37,6 +37,19 @@ function deleteTodoDiv() {
         return
     }
     this.closest('.todo-inner-container').remove();
+
+    if (document.querySelector('.add-todo-btn').style.display === 'none') toggleAddToDoBtn();
+
+}
+
+function toggleAddToDoBtn() {
+    const addToDoBtn = document.querySelector('.add-todo-btn')
+    
+    if (addToDoBtn.style.display === 'none') {
+        addToDoBtn.style.display = 'block'
+    } else {
+        addToDoBtn.style.display = 'none'
+    }
 }
 
 function getCurrentDate() {
@@ -68,7 +81,7 @@ function toggleDueDateBtn() {
 
 function createTodoInputElement() {
     const todoInputElement = document.createElement('div');
-    todoInputElement.classList.add('todo-inner-container');
+    todoInputElement.classList.add('todo-inner-container','input-todo-container');
     const currentDate = getCurrentDate();
 
     todoInputElement.innerHTML = `
@@ -131,7 +144,25 @@ function createProjectInputElement() {
     return projectInputElement;
 }
 
-export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement}
+function clearScreen() {
+    document.querySelectorAll('.todo-inner-container').forEach((elem) => elem.remove());
+}
+
+function loadProject(projectName, todoArray) {
+    clearScreen();
+    todoArray.forEach(todo => {
+        if (todo.parentProject === projectName) {
+            console.log(todo);
+        }
+    })
+}
+
+function removeInputDiv() {
+    const todoInputElement = document.querySelector('.input-todo-container')
+    todoInputElement.remove();
+}
+
+export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement, toggleAddToDoBtn, loadProject, removeInputDiv}
 
 {/* <div class="checklist-container">
     <ul class="checklist">

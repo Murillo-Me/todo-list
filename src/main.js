@@ -43,20 +43,22 @@ function getTodoInput() {
     if (document.querySelector('input.todo-title') !== null) return
 
     const genericAddBtn = this
-    genericAddBtn.style.display = 'none'
+    DOMHandler.toggleAddToDoBtn();
 
     const todoInputElement = DOMHandler.createTodoInputElement();
     todoInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            addToDo(todoInputElement);
-            genericAddBtn.style.display = 'block'
+            const todoInfo = getInputInfo(todoInputElement)
+            addToDo(todoInfo);
+            DOMHandler.toggleAddToDoBtn();
         }
     });
     
     const todoAddBtn = todoInputElement.querySelector('button.add-todo-config-btn');
     todoAddBtn.addEventListener('click', () => {
-        addToDo(todoInputElement)
-        genericAddBtn.style.display = 'block'
+        const todoInfo = getInputInfo(todoInputElement)
+        addToDo(todoInfo);
+        DOMHandler.toggleAddToDoBtn();
     })
 
 }
@@ -70,40 +72,54 @@ function getProjectInput() {
     const projectInputElement = DOMHandler.createProjectInputElement();
     projectInputElement.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-            addProject(projectInputElement);
+            const projectInfo = getInputInfo(projectInputElement)
+            addProject(projectInfo);
             genericAddBtn.style.display = 'block'
         }
     });
 
 }
 
-function addToDo(todoInputElement) {
-    const title = todoInputElement.querySelector('.todo-title').value
+function getInputInfo(DOMElement) {
+    if (DOMElement.classList.contains('todo-inner-container')) {
+        const title = DOMElement.querySelector('.todo-title').value
+    
+        const todoDueDateInput = DOMElement.querySelector('input#dueDate')
+        let dueDate = null
+    
+        if (todoDueDateInput.classList.contains('active')) {
+            dueDate = todoDueDateInput.value
+        }
+    
+        const todoPriorityInput = DOMElement.querySelector('.priority-input-item.active')
+        const priorityValue = todoPriorityInput.getAttribute('data-priority')
 
-    const todoDueDateInput = todoInputElement.querySelector('input#dueDate')
-    let dueDate = null
+        const projectHeading = document.querySelector('h1.project-title')
+        const parentProject = projectHeading.textContent;
 
-    if (todoDueDateInput.classList.contains('active')) {
-        dueDate = todoDueDateInput.value
+        return {title, dueDate, priorityValue, parentProject}
+
+    } else if (DOMElement.classList.contains('input-project-container')) {
+        const title = DOMElement.querySelector('#projectTitle').value
+        const icon = 'fas fa-adjust'
+        const color = 'green'
+
+        return {title, icon, color}
     }
+}
 
-    const todoPriorityInput = todoInputElement.querySelector('.priority-input-item.active')
-    const priorityValue = todoPriorityInput.getAttribute('data-priority')
-
-    let toDo = new TodoItem(title, null, dueDate, priorityValue)
+function addToDo(todoInfo) {
+    let toDo = new TodoItem(todoInfo.title, null, todoInfo.dueDate, todoInfo.priorityValue, todoInfo.parentProject)
     todoList.push(toDo)
 
     DOMHandler.createTodoDiv(toDo);
-    todoInputElement.closest('.todo-inner-container').remove();
+
+    DOMHandler.removeInputDiv();
     console.log(toDo);
 }
 
-function addProject(projectInputElement) {
-    const title = projectInputElement.querySelector('#projectTitle').value
-    const icon = 'fas fa-adjust'
-    const color = 'green'
-
-    let newProject = new Project(title, icon, color)
+function addProject(projectInfo) {
+    let newProject = new Project(projectInfo.title, projectInfo.icon, projectInfo.color)
     projectList.push(newProject)
 
     DOMHandler.createProjectElement(newProject);
@@ -113,4 +129,6 @@ function addProject(projectInputElement) {
 
 loadEventListeners();
 
-DOMHandler.createTodoDiv({title: 'teste'})
+// addToDo({title: 'teste1', dueDate: null, priorityValue: null, 1, parentProject: 'Entry'})
+
+DOMHandler.loadProject('Entry', todoList)
