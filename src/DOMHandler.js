@@ -16,12 +16,15 @@ function createTodoDiv(toDoObj) {
 
     const todoContainer = document.querySelector('.todo-outer-container');
     todoContainer.append(newTodoDiv);
+
+    return newTodoDiv
 }
 
 function createProjectElement(newProject) {
 
     const newProjectElement = document.createElement('li');
     newProjectElement.classList.add('project-item');
+    newProjectElement.setAttribute('data-project', newProject.id)
     newProjectElement.innerHTML = `
             <i data-project="${newProject.id}" class="project-icon ${newProject.icon}"></i>${newProject.title}
     `;
@@ -29,6 +32,7 @@ function createProjectElement(newProject) {
     const projectsContainer = document.querySelector('.project-list');
     projectsContainer.append(newProjectElement);
 
+    return newProjectElement
 }
 
 function deleteTodoDiv() {
@@ -148,21 +152,30 @@ function clearScreen() {
     document.querySelectorAll('.todo-inner-container').forEach((elem) => elem.remove());
 }
 
-function loadProject(projectName, todoArray) {
+function loadProject(projectID, todoArray) {
     clearScreen();
     todoArray.forEach(todo => {
-        if (todo.parentProject === projectName) {
-            console.log(todo);
+        if (todo.parentProjectID === projectID) {
+            // console.log(todo);
+            createTodoDiv(todo)
         }
     })
 }
 
 function removeInputDiv() {
-    const todoInputElement = document.querySelector('.input-todo-container')
-    todoInputElement.remove();
+    if (document.querySelector('.input-todo-container') !== null) {
+        const todoInputElement = document.querySelector('.input-todo-container')
+        todoInputElement.remove();
+        return
+    } 
+    if (document.querySelector('.input-project-container') !== null) {
+        const projectInputElement = document.querySelector('.input-project-container')
+        projectInputElement.remove();
+        return
+    }
 }
 
-export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement, toggleAddToDoBtn, loadProject, removeInputDiv}
+export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement, toggleAddToDoBtn, removeInputDiv, loadProject}
 
 {/* <div class="checklist-container">
     <ul class="checklist">

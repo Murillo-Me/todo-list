@@ -8,13 +8,13 @@ let projectList = []
 class TodoItem {
 
     // priority goes from 0 to 2, higher to lower priority
-    constructor(title, description, dueDate, priority, parentProject) {
+    constructor(title, description, dueDate, priority, parentProjectID) {
         this.id = todoList.length;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.parentProject = parentProject;
+        this.parentProjectID = parentProjectID;
     }
 
 }
@@ -37,6 +37,9 @@ function loadEventListeners() {
 
     const addProjectBtn = document.querySelector('button.new-project-btn')
     addProjectBtn.addEventListener('click', getProjectInput)
+
+    const projectBtns = document.querySelectorAll('li.project-item')
+    projectBtns.forEach(btn => btn.addEventListener('click', () => DOMHandler.loadProject(btn.getAttribute('data-project'), todoList)))
 }
 
 function getTodoInput() {
@@ -95,9 +98,9 @@ function getInputInfo(DOMElement) {
         const priorityValue = todoPriorityInput.getAttribute('data-priority')
 
         const projectHeading = document.querySelector('h1.project-title')
-        const parentProject = projectHeading.textContent;
+        const parentProjectID = projectHeading.getAttribute('data-project')
 
-        return {title, dueDate, priorityValue, parentProject}
+        return {title, dueDate, priorityValue, parentProjectID}
 
     } else if (DOMElement.classList.contains('input-project-container')) {
         const title = DOMElement.querySelector('#projectTitle').value
@@ -109,7 +112,7 @@ function getInputInfo(DOMElement) {
 }
 
 function addToDo(todoInfo) {
-    let toDo = new TodoItem(todoInfo.title, null, todoInfo.dueDate, todoInfo.priorityValue, todoInfo.parentProject)
+    let toDo = new TodoItem(todoInfo.title, null, todoInfo.dueDate, todoInfo.priorityValue, todoInfo.parentProjectID)
     todoList.push(toDo)
 
     DOMHandler.createTodoDiv(toDo);
@@ -122,13 +125,24 @@ function addProject(projectInfo) {
     let newProject = new Project(projectInfo.title, projectInfo.icon, projectInfo.color)
     projectList.push(newProject)
 
-    DOMHandler.createProjectElement(newProject);
-    projectInputElement.closest('.project-item').remove();
+    const newProjectElement = DOMHandler.createProjectElement(newProject);
+    newProjectElement.addEventListener('click', () => DOMHandler.loadProject(newProject.id, todoList))
+
+    DOMHandler.removeInputDiv();
+
+    DOMHandler.loadProject(newProject.id, todoList)
     console.log(newProject);
 }
 
+
+addProject({title: 'Entry', icon: 'fas fa-inbox', color: 'green'})
+addProject({title: 'Test', icon: 'fas fa-adjust', color: 'green'})
+
+addToDo({title: 'teste1', dueDate: null, priorityValue: '1', parentProjectID: '0'});
+addToDo({title: 'teste2', dueDate: null, priorityValue: '2', parentProjectID: '0'});
+addToDo({title: 'teste3', dueDate: null, priorityValue: '1', parentProjectID: '0'});
+addToDo({title: 'teste4', dueDate: null, priorityValue: '1', parentProjectID: '1'});
+
+DOMHandler.loadProject('0', todoList)
+
 loadEventListeners();
-
-// addToDo({title: 'teste1', dueDate: null, priorityValue: null, 1, parentProject: 'Entry'})
-
-DOMHandler.loadProject('Entry', todoList)
