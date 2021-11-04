@@ -10,6 +10,7 @@ $project-2-color: #4F55E1;
 $green-color: rgb(69, 194, 69);
 $yellow-color: rgb(202, 202, 51);
 $red-color: #d63b3b;
+$light-red-color: #d17f7f;
 
 @import './fonts';
 @import './animations';
@@ -182,6 +183,7 @@ body {
                     align-items: center;
                     width: 100%;
                     padding-block: 10px;
+                    flex-wrap: wrap;
 
                     span.todo-check-icon {
                         margin-bottom: 1px;
@@ -193,7 +195,7 @@ body {
         
                     .todo-title {
                         font-family: 'Roboto', sans-serif;
-                        width: 90%;
+                        width: 88%;
                         background-color: $dark-color;
                         border: 1px solid $dark-color;
                         color: $light-color;
@@ -219,6 +221,50 @@ body {
                         color: $medium-light-color;
                         cursor: pointer;
                         font-weight: bolder;
+                    }
+
+                    .todo-status {
+                        width: 150px;
+                        margin-left: 19.5px;
+                        margin-bottom: 6px;
+                        @include flexCenter(row);
+                        justify-content: left;
+                        opacity: 0.7;
+
+                        .priority-status {
+                            width: fit-content;
+                            border-radius: 5px;
+                            padding: 3px;
+                            font-size: 0.8rem;
+
+                            &[data-priority="0"] {
+                                color: $red-color;
+                            }
+
+                            &[data-priority="1"] {
+                                color: $yellow-color;
+                            }
+                            
+                            &[data-priority="2"] {
+                                color: $green-color;
+                            }
+                        }
+
+                        .dueDate-status {
+                            width: fit-content;
+                            margin-left: 20px;
+                            font-weight: bold;
+                            background-color: $medium-light-color;
+                            color: white;
+                            border-radius: 5px;
+                            padding-block: 2px;
+                            padding-inline: 5px;
+
+                            .dueDate-text {
+                                width: 20ch;
+                                text-align: center;
+                            }
+                        }
                     }
                 }
 

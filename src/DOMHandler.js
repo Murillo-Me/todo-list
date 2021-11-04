@@ -4,15 +4,23 @@ function createTodoDiv(toDoObj) {
     const newTodoDiv = document.createElement('div');
     newTodoDiv.classList.add('todo-inner-container');
     newTodoDiv.innerHTML = `
-            <div class="todo-item-container">
+            <div class="todo-item-container" data-id="${toDoObj.id}">
                 <span class="todo-check-icon"><i class="project-icon far fa-circle"></i></span>
                 <span class="todo-title">${toDoObj.title}</span>
                 <button class="delete-todo"><i class="far fa-times-circle fa-2x"></i></button>
+                <div class="todo-status">
+                    <div class="priority-status" data-priority="${toDoObj.priority}"><i class="fas fa-circle"></i></div>
+                    <div class="dueDate-status"><span class="dueDate-text">${toDoObj.dueDate}</span></div>
+                </div>
             </div>
     `;
 
     const deleteTodoBtn = newTodoDiv.querySelector('button.delete-todo')
     deleteTodoBtn.addEventListener('click', deleteTodoDiv)
+
+    const checkBtn = newTodoDiv.querySelector('.todo-check-icon')
+    console.log(checkBtn);
+    checkBtn.addEventListener('click', completeTodo)
 
     const todoContainer = document.querySelector('.todo-outer-container');
     todoContainer.append(newTodoDiv);
@@ -154,12 +162,15 @@ function clearScreen() {
 
 function loadProject(projectID, todoArray) {
     clearScreen();
+
     todoArray.forEach(todo => {
         if (todo.parentProjectID === projectID) {
             // console.log(todo);
             createTodoDiv(todo)
         }
     })
+
+    if (document.querySelector('.add-todo-btn').style.display === 'none') toggleAddToDoBtn();
 }
 
 function removeInputDiv() {
@@ -173,6 +184,10 @@ function removeInputDiv() {
         projectInputElement.remove();
         return
     }
+}
+
+function completeTodo() {
+    console.log(this.parentElement.getAttribute('data-id'));
 }
 
 export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement, toggleAddToDoBtn, removeInputDiv, loadProject}

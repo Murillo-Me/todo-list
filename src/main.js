@@ -3,6 +3,7 @@ import './style.scss'
 import * as DOMHandler from './DOMHandler.js'
 
 let todoList = []
+let completedTodoList = []
 let projectList = []
 
 class TodoItem {
@@ -15,6 +16,7 @@ class TodoItem {
         this.dueDate = dueDate;
         this.priority = priority;
         this.parentProjectID = parentProjectID;
+        this.completedStatus = false
     }
 
 }
@@ -88,7 +90,7 @@ function getInputInfo(DOMElement) {
         const title = DOMElement.querySelector('.todo-title').value
     
         const todoDueDateInput = DOMElement.querySelector('input#dueDate')
-        let dueDate = null
+        let dueDate = ''
     
         if (todoDueDateInput.classList.contains('active')) {
             dueDate = todoDueDateInput.value
@@ -138,10 +140,10 @@ function addProject(projectInfo) {
 addProject({title: 'Entry', icon: 'fas fa-inbox', color: 'green'})
 addProject({title: 'Test', icon: 'fas fa-adjust', color: 'green'})
 
-addToDo({title: 'teste1', dueDate: null, priorityValue: '1', parentProjectID: '0'});
-addToDo({title: 'teste2', dueDate: null, priorityValue: '2', parentProjectID: '0'});
-addToDo({title: 'teste3', dueDate: null, priorityValue: '1', parentProjectID: '0'});
-addToDo({title: 'teste4', dueDate: null, priorityValue: '1', parentProjectID: '1'});
+addToDo({title: 'teste1', dueDate: '2021-11-25', priorityValue: '1', parentProjectID: '0'});
+addToDo({title: 'teste2', dueDate: '', priorityValue: '2', parentProjectID: '0'});
+addToDo({title: 'teste3', dueDate: '', priorityValue: '1', parentProjectID: '0'});
+addToDo({title: 'teste4', dueDate: '', priorityValue: '1', parentProjectID: '1'});
 
 DOMHandler.loadProject('0', todoList)
 
