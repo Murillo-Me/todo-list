@@ -123,6 +123,10 @@ function addToDo(todoInfo) {
     console.log(toDo);
 }
 
+// function completeToDo(todoInfo) {
+
+// }
+
 function addProject(projectInfo) {
     let newProject = new Project(projectInfo.title, projectInfo.icon, projectInfo.color)
     projectList.push(newProject)

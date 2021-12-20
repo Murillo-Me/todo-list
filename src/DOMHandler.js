@@ -20,7 +20,7 @@ function createTodoDiv(toDoObj) {
 
     const checkBtn = newTodoDiv.querySelector('.todo-check-icon')
     console.log(checkBtn);
-    checkBtn.addEventListener('click', completeTodo)
+    checkBtn.addEventListener('click', deleteTodoDiv)
 
     const todoContainer = document.querySelector('.todo-outer-container');
     todoContainer.append(newTodoDiv);
@@ -44,6 +44,8 @@ function createProjectElement(newProject) {
 }
 
 function deleteTodoDiv() {
+    const todoID = this.parentElement.getAttribute('data-id')
+
     if (this.closest('.todo-inner-container') === null) {
         console.error("ERROR: Couldn't find todo element to delete. No todo-inner-container found.");
         return
@@ -52,6 +54,7 @@ function deleteTodoDiv() {
 
     if (document.querySelector('.add-todo-btn').style.display === 'none') toggleAddToDoBtn();
 
+    return todoID
 }
 
 function toggleAddToDoBtn() {
@@ -184,10 +187,6 @@ function removeInputDiv() {
         projectInputElement.remove();
         return
     }
-}
-
-function completeTodo() {
-    console.log(this.parentElement.getAttribute('data-id'));
 }
 
 export {createTodoDiv, createTodoInputElement, deleteTodoDiv, createProjectInputElement, createProjectElement, toggleAddToDoBtn, removeInputDiv, loadProject}
