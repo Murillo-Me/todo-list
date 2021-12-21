@@ -1,5 +1,5 @@
 
-function createTodoDiv(toDoObj) {
+function createTodoDiv(toDoObj, todoArray) {
 
     const newTodoDiv = document.createElement('div');
     newTodoDiv.classList.add('todo-inner-container');
@@ -16,11 +16,28 @@ function createTodoDiv(toDoObj) {
     `;
 
     const deleteTodoBtn = newTodoDiv.querySelector('button.delete-todo')
-    deleteTodoBtn.addEventListener('click', deleteTodoDiv)
+    deleteTodoBtn.addEventListener('click', (e) => {
+        deleteTodoDiv.call(e.currentTarget)
+
+        for (let i = todoArray.length - 1; i >= 0; i-=1) {
+            if (todoArray[i].id === toDoObj.id) {
+              todoArray.splice(i, 1);
+            }
+          }
+
+    })
 
     const checkBtn = newTodoDiv.querySelector('.todo-check-icon')
-    console.log(checkBtn);
-    checkBtn.addEventListener('click', deleteTodoDiv)
+    checkBtn.addEventListener('click', (e) => {
+        deleteTodoDiv.call(e.currentTarget)
+
+        for (let i = todoArray.length - 1; i >= 0; i-=1) {
+            if (todoArray[i].id === toDoObj.id) {
+              todoArray.splice(i, 1);
+            }
+          }
+
+    })
 
     const todoContainer = document.querySelector('.todo-outer-container');
     todoContainer.append(newTodoDiv);
@@ -163,13 +180,18 @@ function clearScreen() {
     document.querySelectorAll('.todo-inner-container').forEach((elem) => elem.remove());
 }
 
-function loadProject(projectID, todoArray) {
+function loadProject(projectID, todoArray, projectArray) {
     clearScreen();
 
+    const projectTitle = document.querySelector('.project-title')
+    projectTitle.setAttribute("data-project", projectID); 
+    const projectObj = projectArray.find(element => (element.id === projectID))
+    projectTitle.innerHTML = `<i data-project="${projectObj.id}" class="project-icon ${projectObj.icon}"></i>${projectObj.title}`
+
     todoArray.forEach(todo => {
+        console.log(projectID)
         if (todo.parentProjectID === projectID) {
-            // console.log(todo);
-            createTodoDiv(todo)
+            createTodoDiv(todo, todoArray)
         }
     })
 
