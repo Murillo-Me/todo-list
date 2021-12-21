@@ -3,14 +3,17 @@ import './style.scss'
 import * as DOMHandler from './DOMHandler.js'
 
 let todoList = []
+let todoCounter = 0
 let completedTodoList = []
+
 let projectList = []
+let projectCounter = 0
 
 class TodoItem {
 
     // priority goes from 0 to 2, higher to lower priority
     constructor(title, description, dueDate, priority, parentProjectID) {
-        this.id = todoList.length;
+        this.id = todoCounter++;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -24,7 +27,7 @@ class TodoItem {
 class Project {
     
     constructor(title, icon, color) {
-        this.id = projectList.length;
+        this.id = projectCounter++;
         this.listOrder = projectList.length;
         this.title = title;
         this.icon = icon;
